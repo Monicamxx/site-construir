@@ -36,6 +36,38 @@ st.markdown("""
         border-radius: 5px !important;
     }
 
+    /* --- CORREÇÃO DOS FORMULÁRIOS (FUNDO BRANCO E BOTÃO ROXO) --- */
+    div[data-testid="stForm"] {
+        background-color: white !important;
+        padding: 25px !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
+        border: 1px solid #eee !important;
+    }
+    div[data-testid="stForm"] input {
+        background-color: white !important;
+        color: #333 !important;
+        border: 1px solid #ddd !important;
+    }
+    div[data-testid="stForm"] button[type="submit"] {
+        background-color: #2c1b8f !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 5px !important;
+        padding: 10px !important;
+        font-weight: bold !important;
+        width: 100% !important;
+    }
+    div[data-testid="stForm"] button[type="submit"]:hover {
+        background-color: #1a0f5c !important;
+    }
+    /* Botão de olho (mostrar/ocultar senha) */
+    div[data-testid="stTextInput"] button {
+        background-color: white !important;
+        border: none !important;
+        color: #2c1b8f !important;
+    }
+
     /* --- ESTILO DOS BOTÕES DO MENU (Para parecerem links) --- */
     div.stButton > button {
         background-color: transparent !important;
