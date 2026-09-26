@@ -15,7 +15,7 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    [data-testid="stSidebar"] {display: none;} /* Esconde a barra lateral */
+    [data-testid="stSidebar"] {display: none;}
 
     /* Fundo geral */
     .stApp { background-color: #F8F9FA; }
@@ -39,11 +39,22 @@ st.markdown("""
 
     /* --- BOTÕES ROXOS (ENTRAR / CADASTRAR) --- */
     .btn-roxo {
-        background-color: #2c1b8f; color: white !important;
-        border: none; padding: 10px 25px; border-radius: 5px;
-        font-weight: bold; text-decoration: none;
-        font-size: 14px; text-align: center;
         display: block;
+        background-color: #2c1b8f;
+        color: white !important;
+        padding: 10px 25px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+    .btn-roxo:hover {
+        background-color: #1a0f5c;
+        color: white !important;
+        text-decoration: none;
     }
 
     /* --- SEÇÃO HERO (Banner) --- */
@@ -81,19 +92,21 @@ st.markdown("""
 if 'pagina' not in st.session_state:
     st.session_state.pagina = 'Inicio'
 
-# --- 4. CABEÇALHO (NAVBAR no TOPO) ---
+# --- 4. CAPTURA O CLIQUE DOS LINKS (LOGIN E CADASTRO) ---
+query_params = st.query_params
+if "pagina" in query_params:
+    if query_params["pagina"] == "Login":
+        st.session_state.pagina = 'Login'
+    elif query_params["pagina"] == "Cadastro":
+        st.session_state.pagina = 'Cadastro'
+    st.query_params.clear()
+    st.rerun()
+
+# --- 5. CABEÇALHO (NAVBAR no TOPO) ---
 col_logo, col_m1, col_m2, col_m3, col_m4, col_btn1, col_btn2 = st.columns([2, 1, 1, 1, 1, 1, 1])
 
 with col_logo:
-    st.markdown("""
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="45">
-            <div>
-                <h3 style="margin:0; color:#2c1b8f; font-weight: 900; font-size: 20px;">CONSTRUIR+</h3>
-                <span style="font-size:8px; color:#555; font-weight: bold;">PLATAFORMA DE CAPTAÇÃO</span>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    st.image("logo.png", width=120) # Ajuste a largura (width) como preferir
 
 with col_m1:
     if st.button("INICIO"): st.session_state.pagina = 'Inicio'; st.rerun()
@@ -105,14 +118,15 @@ with col_m4:
     if st.button("PROFISSIONAIS"): st.session_state.pagina = 'Profissionais'; st.rerun()
 
 with col_btn1:
-    st.markdown('<a href="#" class="btn-roxo">ENTRAR</a>', unsafe_allow_html=True)
+    st.markdown('<a href="?pagina=Login" target="_self" class="btn-roxo">ENTRAR</a>', unsafe_allow_html=True)
+
 with col_btn2:
-    st.markdown('<a href="#" class="btn-roxo">CADASTRAR</a>', unsafe_allow_html=True)
+    st.markdown('<a href="?pagina=Cadastro" target="_self" class="btn-roxo">CADASTRAR</a>', unsafe_allow_html=True)
 
 st.markdown("<hr style='margin: 0 0 20px 0; border: 1px solid #eee;'>", unsafe_allow_html=True)
 
 
-# --- 5. CONTEÚDO DAS PÁGINAS ---
+# --- 6. CONTEÚDO DAS PÁGINAS ---
 
 if st.session_state.pagina == 'Inicio':
     # ================== PÁGINA INICIAL ==================
@@ -185,14 +199,9 @@ elif st.session_state.pagina == 'Vagas':
 
 elif st.session_state.pagina == 'Empresas':
     # ================== PÁGINA DE EMPRESAS ==================
-
-    # ================== PÁGINA DE EMPRESAS ==================
     st.markdown("<h1 style='color: #2c1b8f;'>🏢 Para Empresas</h1>", unsafe_allow_html=True)
     st.write("Encontre os melhores profissionais para a sua obra de forma rápida e segura.")
-    
     st.write("---")
-    
-    # Vantagens para Empresas
     st.markdown("<h3 style='color: #2c1b8f;'>Por que usar a Construir+?</h3>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
@@ -222,7 +231,6 @@ elif st.session_state.pagina == 'Empresas':
     st.markdown("<h3 style='color: #2c1b8f;'>Empresas Parceiras</h3>", unsafe_allow_html=True)
     st.write("Veja algumas das empresas que já confiam na Construir+:")
     
-    # Exemplo de logos de empresas parceiras
     c1, c2, c3, c4 = st.columns(4)
     with c1:
         st.markdown("<div style='background-color: white; border: 1px solid #eee; border-radius: 8px; padding: 20px; text-align: center; color: #555; font-weight: bold;'>Construtora Alpha</div>", unsafe_allow_html=True)
@@ -235,14 +243,9 @@ elif st.session_state.pagina == 'Empresas':
 
 elif st.session_state.pagina == 'Profissionais':
     # ================== PÁGINA DE PROFISSIONAIS ==================
-
-    # ================== PÁGINA DE PROFISSIONAIS ==================
     st.markdown("<h1 style='color: #2c1b8f;'>👷 Para Profissionais</h1>", unsafe_allow_html=True)
     st.write("Encontre a oportunidade perfeita para a sua carreira na construção civil.")
-    
     st.write("---")
-    
-    # Passos para o profissional
     st.markdown("<h3 style='color: #2c1b8f;'>Como funciona para você?</h3>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
@@ -274,10 +277,8 @@ elif st.session_state.pagina == 'Profissionais':
     st.write("---")
     st.markdown("<h3 style='color: #2c1b8f;'>Áreas em Destaque</h3>", unsafe_allow_html=True)
     
-    # Áreas em destaque
     areas = ["🔨 Pedreiro", "⚡ Eletricista", "🚿 Encanador", "🏗️ Engenheiro Civil", "📐 Arquiteto", "🖌️ Pintor", "🚛 Operador de Máquinas", "🧱 Azulejista"]
     
-    # Criando as colunas para as áreas
     cols = st.columns(4)
     for i, area in enumerate(areas):
         with cols[i % 4]:
@@ -286,3 +287,43 @@ elif st.session_state.pagina == 'Profissionais':
                 {area}
             </div>
             """, unsafe_allow_html=True)
+
+elif st.session_state.pagina == 'Cadastro':
+    # ================== PÁGINA DE CADASTRO ==================
+    st.markdown("<h1 style='color: #2c1b8f; text-align: center;'>📝 Criar Conta</h1>", unsafe_allow_html=True)
+    st.write("Preencha os dados abaixo para se cadastrar na Construir+.")
+    
+    col_vazia1, col_form, col_vazia2 = st.columns([1, 2, 1])
+    with col_form:
+        with st.form("form_cadastro"):
+            nome = st.text_input("Nome Completo")
+            email = st.text_input("E-mail")
+            senha = st.text_input("Senha", type="password")
+            confirmar_senha = st.text_input("Confirmar Senha", type="password")
+            
+            botao_cadastrar = st.form_submit_button("CADASTRAR", use_container_width=True)
+            
+            if botao_cadastrar:
+                if nome and email and senha and (senha == confirmar_senha):
+                    st.success(f"✅ Cadastro de {nome} realizado com sucesso! Agora faça o login.")
+                else:
+                    st.error("Por favor, preencha todos os campos e garanta que as senhas coincidam.")
+
+elif st.session_state.pagina == 'Login':
+    # ================== PÁGINA DE LOGIN ==================
+    st.markdown("<h1 style='color: #2c1b8f; text-align: center;'>🔐 Entrar</h1>", unsafe_allow_html=True)
+    st.write("Acesse sua conta para continuar.")
+    
+    col_vazia1, col_form, col_vazia2 = st.columns([1, 2, 1])
+    with col_form:
+        with st.form("form_login"):
+            email_login = st.text_input("E-mail")
+            senha_login = st.text_input("Senha", type="password")
+            
+            botao_login = st.form_submit_button("ENTRAR", use_container_width=True)
+            
+            if botao_login:
+                if email_login and senha_login:
+                    st.success(f"✅ Login realizado com sucesso! Bem-vindo, {email_login}.")
+                else:
+                    st.error("Por favor, preencha o e-mail e a senha.")
