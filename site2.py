@@ -18,7 +18,23 @@ st.markdown("""
     [data-testid="stSidebar"] {display: none;}
 
     /* Fundo geral */
-    .stApp { background-color: #F8F9FA; }
+    .stApp { background-color: #F8F9FA !important; }
+
+    /* --- CORREÇÃO DOS CAMPOS DE BUSCA (FUNDO BRANCO) --- */
+    div[data-testid="stTextInput"] input {
+        background-color: white !important;
+        color: #333 !important;
+        border: 1px solid #ddd !important;
+        border-radius: 5px !important;
+        padding: 10px !important;
+    }
+    div[data-testid="stTextInput"] input::placeholder {
+        color: #999 !important;
+    }
+    div[data-testid="stTextInput"] > div {
+        background-color: white !important;
+        border-radius: 5px !important;
+    }
 
     /* --- ESTILO DOS BOTÕES DO MENU (Para parecerem links) --- */
     div.stButton > button {
@@ -84,6 +100,11 @@ st.markdown("""
     }
     .categoria-box h4 { color: #2c1b8f; margin: 0; font-size: 16px; font-weight: 800; }
     .titulo-secao { color: #2c1b8f; font-size: 24px; font-weight: 900; margin-top: 40px; margin-bottom: 20px; }
+
+    /* --- CORREÇÃO GERAL DOS TEXTOS --- */
+    label, .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4 {
+        color: #333 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -106,7 +127,7 @@ if "pagina" in query_params:
 col_logo, col_m1, col_m2, col_m3, col_m4, col_btn1, col_btn2 = st.columns([2, 1, 1, 1, 1, 1, 1])
 
 with col_logo:
-    st.image("logo.png", width=120) # Ajuste a largura (width) como preferir
+    st.image("logo.png", width=120)
 
 with col_m1:
     if st.button("INICIO"): st.session_state.pagina = 'Inicio'; st.rerun()
