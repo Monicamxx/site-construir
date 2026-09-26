@@ -20,6 +20,23 @@ st.markdown("""
     /* Fundo geral */
     .stApp { background-color: #F8F9FA !important; }
 
+    /* --- ESTILO GERAL DOS BOTÕES (MENU) --- */
+    div.stButton > button {
+        background-color: transparent !important;
+        color: #2c1b8f !important;
+        border: none !important;
+        font-weight: 800 !important;
+        font-size: 14px !important;
+        letter-spacing: 1px !important;
+        padding: 0px !important;
+        margin: 0px !important;
+        box-shadow: none !important;
+    }
+    div.stButton > button:hover {
+        color: #1a0f5c !important;
+        text-decoration: underline !important;
+    }
+
     /* --- CORREÇÃO DOS CAMPOS DE BUSCA (FUNDO BRANCO) --- */
     div[data-testid="stTextInput"] input {
         background-color: white !important;
@@ -37,6 +54,7 @@ st.markdown("""
     }
 
     /* --- CORREÇÃO DOS FORMULÁRIOS (FUNDO BRANCO E BOTÃO ROXO) --- */
+    /* Estas regras vêm DEPOIS das regras gerais para terem prioridade */
     div[data-testid="stForm"] {
         background-color: white !important;
         padding: 25px !important;
@@ -49,6 +67,7 @@ st.markdown("""
         color: #333 !important;
         border: 1px solid #ddd !important;
     }
+    /* Botão de envio do formulário (CADASTRAR/ENTRAR) */
     div[data-testid="stForm"] button[type="submit"] {
         background-color: #2c1b8f !important;
         color: white !important;
@@ -68,24 +87,7 @@ st.markdown("""
         color: #2c1b8f !important;
     }
 
-    /* --- ESTILO DOS BOTÕES DO MENU (Para parecerem links) --- */
-    div.stButton > button {
-        background-color: transparent !important;
-        color: #2c1b8f !important;
-        border: none !important;
-        font-weight: 800 !important;
-        font-size: 14px !important;
-        letter-spacing: 1px !important;
-        padding: 0px !important;
-        margin: 0px !important;
-        box-shadow: none !important;
-    }
-    div.stButton > button:hover {
-        color: #1a0f5c !important;
-        text-decoration: underline !important;
-    }
-
-    /* --- BOTÕES ROXOS (ENTRAR / CADASTRAR) --- */
+    /* --- BOTÕES ROXOS (ENTRAR / CADASTRAR no topo) --- */
     .btn-roxo {
         display: block;
         background-color: #2c1b8f;
